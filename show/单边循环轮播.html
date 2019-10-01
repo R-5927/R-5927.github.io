@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        #box1 {
+            width: 650px;
+            height: 300px;
+            margin: 100px auto 0 auto;
+            position: relative;
+        }
+
+        img {
+            width: 650px;
+            height: 300px;
+        }
+
+        .none {
+            display: none;
+        }
+
+        .block {
+            display: block;
+        }
+
+        span {
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.6);
+            font-size: 30px;
+            text-align: center;
+            line-height: 40px;
+            color: #f2f2f2;
+            cursor: pointer;
+        }
+
+        .btn1 {
+            position: absolute;
+            left: 0;
+            top: 130px;
+        }
+
+        .btn2 {
+            position: absolute;
+            right: 0;
+            top: 130px;
+        }
+
+        p {
+            width: 100%;
+            height: 25px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #f2f2f2;
+            text-align: center
+        }
+
+        .p1 {
+            position: absolute;
+            top: 0;
+        }
+
+        .p2 {
+            position: absolute;
+            bottom: 0;
+        }
+
+        #box2 {
+            width: 600px;
+            height: 100px;
+            margin: 30px auto;
+        }
+
+        button {
+            width: 150px;
+            height: 50px;
+            cursor: pointer;
+            margin-left: 90px;
+        }
+
+        .onclicked {
+            background-color: red;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box1">
+        <img src="./img/sh1.jpg" class="block">
+        <img src="./img/sh2.jpg" class="none">
+        <img src="./img/sh3.jpg" class="none">
+        <img src="./img/sh4.jpg" class="none">
+        <img src="./img/sh5.jpg" class="none">
+        <span class="btn1">&lt;</span>
+        <span class="btn2">&gt;</span>
+        <p class="p1">1/5</p>
+        <p class="p2">1</p>
+    </div>
+    <div id="box2">
+        <button class="onclicked">正常模式</button>
+        <button>循环模式</button>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script>
+        let num = 0;
+        let bol = true;
+
+        $("button").click(function () {
+            $(this).addClass("onclicked").siblings().removeClass("onclicked");
+            bol = !bol;
+        });
+
+        $("span").eq(0).click(function () {
+            show(bol, true);
+        });
+
+        $("span").eq(1).click(function () {
+            show(bol, false);
+        });
+
+        let show = (bol, mark) => {
+            if (bol && ((num == 0 && mark) || (num == 4 && !mark))) return;
+            $("img").eq(num).removeClass("block").addClass("none");
+            if (!bol && num == 0) num = 5;
+            mark ? --num : ++num;
+            if (!bol) num %= 5;
+            $("img").eq(num).removeClass("none").addClass("block");
+            $("p").eq(0).html(num + 1 + "/5");
+            $("p").eq(1).html(num + 1);
+        }
+        
+    </script>
+</body>
+
+</html>
